@@ -1,0 +1,17 @@
+FROM python:3.12-slim-bookworm
+
+WORKDIR /app
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    CAREERS_URL=https://wsc-sports.com/Careers \
+    PARQUET_PATH=/app/out/open_positions.parquet
+
+COPY requirements-producer.txt .
+RUN pip install -r requirements-producer.txt
+
+COPY producer ./producer
+
+RUN mkdir -p /app/out
+
+CMD ["python", "-m", "producer"]
