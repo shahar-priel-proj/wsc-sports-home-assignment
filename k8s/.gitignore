@@ -1,0 +1,2 @@
+# Local file with real connection strings (create from secret-env.example)
+secret.env

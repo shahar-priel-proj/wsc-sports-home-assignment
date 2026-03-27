@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: careers-consumer
+  labels:
+    app: careers-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: careers-consumer
+  template:
+    metadata:
+      labels:
+        app: careers-consumer
+    spec:
+      containers:
+        - name: consumer
+          image: careers-consumer:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: wsc-careers-config
+            - secretRef:
+                name: wsc-careers-secrets
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1536Mi"
+              cpu: "1000m"

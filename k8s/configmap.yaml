@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wsc-careers-config
+data:
+  KAFKA_TOPIC: "careers-positions"
+  SKIP_KAFKA: "0"
+  CAREERS_URL: "https://wsc-sports.com/Careers"
+  AZURE_STORAGE_CONTAINER: "careers-parquet"
+  ENRICH_WITH_DUCKDB: "1"
+  LOG_LEVEL: "INFO"

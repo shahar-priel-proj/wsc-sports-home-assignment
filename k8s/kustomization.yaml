@@ -1,0 +1,22 @@
+# Replace BOTH occurrences of `changeme` with your real ACR name (lowercase letters/numbers only).
+# Do NOT use underscores in the hostname—e.g. YOUR_ACR_NAME.azurecr.io is invalid and causes InvalidImageName.
+# Do not put connection strings in this repo—use secret.env (see README).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: wsc-careers
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - producer-job.yaml
+  - producer-cronjob.yaml
+  - consumer-deployment.yaml
+
+images:
+  - name: careers-producer
+    newName: wscdemoacr.azurecr.io/careers-producer
+    newTag: latest
+  - name: careers-consumer
+    newName: wscdemoacr.azurecr.io/careers-consumer
+    newTag: latest

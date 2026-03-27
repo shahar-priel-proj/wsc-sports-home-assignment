@@ -1,0 +1,20 @@
+# One-shot scrape + publish. Re-run after: kubectl delete job -n wsc-careers careers-producer-once
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: careers-producer-once
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: producer
+          image: careers-producer:latest
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: wsc-careers-config
+            - secretRef:
+                name: wsc-careers-secrets

@@ -1,0 +1,27 @@
+# Scheduled producer runs. Set suspend: true to disable without deleting.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: careers-producer-scheduled
+spec:
+  schedule: "0 */6 * * *"
+  suspend: false
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 86400
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: producer
+              image: careers-producer:latest
+              imagePullPolicy: Always
+              envFrom:
+                - configMapRef:
+                    name: wsc-careers-config
+                - secretRef:
+                    name: wsc-careers-secrets
