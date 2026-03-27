@@ -20,7 +20,7 @@ End-to-end flow: **scrape** WSC careers listings → **Parquet** (`Index`, `Posi
 
 ## Prerequisites
 
-- **Python 3.12+** recommended (matches `Dockerfile`); 3.11 may work if dependencies resolve.
+- **Python 3.12+** recommended (matches `Dockerfile.producer`); 3.11 may work if dependencies resolve.
 - **Repository root** as the working directory so `producer`, `consumer`, `enrichment`, and `_lib` import correctly.
 
 ---
@@ -36,7 +36,7 @@ pip install -r requirements-dev.txt
 
 ### Producer
 
-Install runtime deps only: `pip install -r requirements.txt`.
+Install runtime deps only: `pip install -r requirements-producer.txt`.
 
 **Required (to publish to Event Hubs):** `EVENTHUB_CONNECTION_STRING`, `KAFKA_TOPIC`  
 **Optional:** `SKIP_KAFKA` (`1` to skip broker and only write Parquet), `CAREERS_URL`, `CAREERS_MERGE_URLS`, `PARQUET_PATH`, `HIGH_THROUGHPUT`, `LOG_LEVEL`, scraper tuning (`SCRAPER_*`, etc. — see `producer/scrape.py` / `EDGE_CASES.md`).
@@ -67,10 +67,10 @@ python -m consumer
 
 ## Docker
 
-From the **repository root** (where `Dockerfile` and `Dockerfile.consumer` live):
+From the **repository root** (where `Dockerfile.producer` and `Dockerfile.consumer` live):
 
 ```bash
-docker build -t careers-producer .
+docker build -f Dockerfile.producer -t careers-producer .
 docker run --rm \
   -e EVENTHUB_CONNECTION_STRING='...' \
   -e KAFKA_TOPIC='...' \

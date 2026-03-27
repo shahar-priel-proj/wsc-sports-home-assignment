@@ -113,7 +113,7 @@ az aks update -g "$RG" -n "$CLUSTER" --attach-acr "$ACR_ID"
 az acr login --name "$ACR_NAME"
 # AKS Linux nodes are amd64. On Apple Silicon (M1/M2/M3) you must build for linux/amd64 or pulls fail with
 # "no match for platform in manifest".
-docker build --platform linux/amd64 -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
+docker build --platform linux/amd64 -f Dockerfile.producer -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
 docker build --platform linux/amd64 -f Dockerfile.consumer -t "$ACR_NAME.azurecr.io/careers-consumer:latest" .
 docker push "$ACR_NAME.azurecr.io/careers-producer:latest"
 docker push "$ACR_NAME.azurecr.io/careers-consumer:latest"
@@ -221,7 +221,7 @@ If a repository or `latest` tag is missing, push from the repo root (§5):
 
 ```bash
 az acr login --name "$ACR_NAME"
-docker build --platform linux/amd64 -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
+docker build --platform linux/amd64 -f Dockerfile.producer -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
 docker build --platform linux/amd64 -f Dockerfile.consumer -t "$ACR_NAME.azurecr.io/careers-consumer:latest" .
 docker push "$ACR_NAME.azurecr.io/careers-producer:latest"
 docker push "$ACR_NAME.azurecr.io/careers-consumer:latest"
@@ -265,7 +265,7 @@ If you briefly see two `careers-consumer` pods, that is often a rolling update; 
 You built **arm64** images locally; AKS nodes expect **linux/amd64**. Rebuild and push with **`--platform linux/amd64`** (see §5 `docker build` lines). If `docker build` complains, enable Docker **containerd** / **Rosetta** or use:
 
 ```bash
-docker buildx build --platform linux/amd64 --push -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
+docker buildx build --platform linux/amd64 --push -f Dockerfile.producer -t "$ACR_NAME.azurecr.io/careers-producer:latest" .
 docker buildx build --platform linux/amd64 --push -f Dockerfile.consumer -t "$ACR_NAME.azurecr.io/careers-consumer:latest" .
 ```
 

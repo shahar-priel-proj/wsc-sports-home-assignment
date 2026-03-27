@@ -5,7 +5,7 @@ WORKDIR /app
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
-COPY requirements.txt requirements-consumer.txt ./
+COPY requirements-producer.txt requirements-consumer.txt ./
 RUN pip install -r requirements-consumer.txt
 
 COPY producer ./producer
