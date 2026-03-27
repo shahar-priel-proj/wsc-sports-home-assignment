@@ -54,7 +54,7 @@ def send_failure_alert(*, subject: str, body: str) -> bool:
     Send a plain-text alert email if ``ALERT_ON_FAILURE`` is enabled and SMTP is configured.
 
     Environment:
-        ALERT_ON_FAILURE: ``0`` / ``false`` / ``no`` to disable (default: on).
+        ALERT_ON_FAILURE: ``1`` / ``true`` / ``yes`` / ``on`` to enable (default: off). Requires ``SMTP_HOST`` (and typical auth) or no mail is sent.
         ALERT_EMAIL_TO: Comma-separated recipients (default ``shaharpriel@gmail.com``).
         ALERT_EMAIL_FROM: Sender address (defaults to first recipient).
         SMTP_HOST: If unset, no email is sent (a warning is logged once per call).
@@ -65,7 +65,7 @@ def send_failure_alert(*, subject: str, body: str) -> bool:
     Returns:
         True if an SMTP transaction was attempted and completed without raising.
     """
-    if not _truthy("ALERT_ON_FAILURE", default="1"):
+    if not _truthy("ALERT_ON_FAILURE", default="0"):
         log.debug("Skipping failure email: ALERT_ON_FAILURE is disabled")
         return False
 

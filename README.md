@@ -52,7 +52,7 @@ python -m producer
 Install: `pip install -r requirements-consumer.txt`.
 
 **Required:** `EVENTHUB_CONNECTION_STRING`, `KAFKA_TOPIC`, `AZURE_STORAGE_CONNECTION_STRING`  
-**Optional:** `AZURE_STORAGE_CONTAINER`, `ENRICH_WITH_DUCKDB`, `KAFKA_CONSUMER_GROUP`, `CONSUMER_MAX_MESSAGES`, SMTP / alert vars — full tables in [`consumer/README.md`](consumer/README.md).
+**Optional:** `AZURE_STORAGE_CONTAINER`, `ENRICH_WITH_DUCKDB`, `KAFKA_CONSUMER_GROUP`, `CONSUMER_MAX_MESSAGES`, SMTP / alert vars — full tables in [`consumer/README.md`](consumer/README.md). **Failure emails** are off by default (`ALERT_ON_FAILURE` defaults to `0`). To receive them, set `ALERT_ON_FAILURE=1` and configure SMTP (`SMTP_HOST`, etc.); alerts are not sent without SMTP.
 
 ```bash
 export EVENTHUB_CONNECTION_STRING='<your-namespace-connection-string>'

@@ -17,6 +17,12 @@ def test_send_failure_alert_skipped_when_disabled(monkeypatch: pytest.MonkeyPatc
     assert email_notify.send_failure_alert(subject="s", body="b") is False
 
 
+def test_send_failure_alert_skipped_when_alert_disabled_by_default(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv("ALERT_ON_FAILURE", raising=False)
+    monkeypatch.setenv("SMTP_HOST", "smtp.example.com")
+    assert email_notify.send_failure_alert(subject="s", body="b") is False
+
+
 def test_send_failure_alert_skipped_without_smtp(monkeypatch: pytest.MonkeyPatch, caplog):
     monkeypatch.delenv("SMTP_HOST", raising=False)
     monkeypatch.setenv("ALERT_ON_FAILURE", "1")

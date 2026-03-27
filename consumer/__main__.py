@@ -94,7 +94,7 @@ def main() -> None:
             Logic lives in ``enrichment/duckdb_enrich.py`` (reusable in stream processors).
 
         Failure email (see ``_lib/email_notify.py``):
-            ALERT_ON_FAILURE, ALERT_EMAIL_TO (default ``shaharpriel@gmail.com``),
+            ALERT_ON_FAILURE (default off; enable with ``1``), ALERT_EMAIL_TO (default ``shaharpriel@gmail.com``),
             ALERT_EMAIL_FROM, SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_SSL.
             Enrichment validation failures use ``notify_enrichment_validation_failure`` (subset of
             ``ENRICH_WITH_DUCKDB=1`` path).

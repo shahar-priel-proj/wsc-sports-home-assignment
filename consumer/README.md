@@ -48,9 +48,11 @@ Optional: set `AUTO_CREATE_CONTAINER=1` so the app creates the container if it i
 
 On **startup error** (bad config), **per-message processing error** (enrichment validation, blob upload, …), or **Kafka consumer error**, the consumer can send a plain-text email via SMTP.
 
+**Turning on `ALERT_ON_FAILURE` is not enough:** you must also set **`SMTP_HOST`** (and usually `SMTP_USER` / `SMTP_PASSWORD`) below. Without SMTP, no email is delivered (a warning is logged).
+
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ALERT_ON_FAILURE` | `1` (on) | Set `0` / `false` / `no` to disable sending. |
+| `ALERT_ON_FAILURE` | `0` (off) | Set `1` / `true` / `yes` / `on` to enable sending (requires SMTP vars). |
 | `ALERT_EMAIL_TO` | `shaharpriel@gmail.com` | Comma-separated recipients. |
 | `ALERT_EMAIL_FROM` | First recipient | SMTP `From` header (use a mailbox your provider allows). |
 | `SMTP_HOST` | *(empty)* | If unset, no email is sent (warning logged). E.g. `smtp.gmail.com`. |
